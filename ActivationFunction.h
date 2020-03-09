@@ -16,6 +16,7 @@ enum ACTIVATION_FUNCTION {
 class ActivationCalculator {
 public:
     static const float calculate(ACTIVATION_FUNCTION activationFunction, float x);
+    static const float calculateDerivative(ACTIVATION_FUNCTION activationFunction, float x);
 };
 
 #endif //NEURALNETWORKS_ACTIVATIONFUNCTION_H

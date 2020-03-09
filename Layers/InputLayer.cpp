@@ -18,7 +18,6 @@ void InputLayer::compile() {
         //Give every Neuron a reference to the layer before it and after it
         layerNeurons[i].setNextLayer(nextLayer);
     }
-    std::cout << layerNeurons[0].getPrevWeightsSize() << " - " << getLayerSize() << " - " << layerNeurons[1].getNextWeightsSize() << std::endl;
 }
 
 /**

@@ -35,6 +35,9 @@ public:
     void setNextLayer(SuperLayer *nextLayer);
 
     void calculateNeurons();
+
+    Neuron *getLayerNeurons() const;
+
 protected:
     SuperLayer* prevLayer;
     SuperLayer* nextLayer;

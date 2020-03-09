@@ -23,6 +23,4 @@ void HiddenLayer::compile() {
         layerNeurons[i].setPrevLayer(prevLayer);
         layerNeurons[i].setNextLayer(nextLayer);
     }
-
-    std::cout << layerNeurons[0].getPrevWeightsSize() << " - " << getLayerSize() << " - " << layerNeurons[1].getNextWeightsSize() << std::endl;
 }

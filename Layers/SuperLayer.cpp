@@ -39,4 +39,8 @@ void SuperLayer::calculateNeurons() {
     }
 }
 
+Neuron *SuperLayer::getLayerNeurons() const {
+    return layerNeurons;
+}
+
 

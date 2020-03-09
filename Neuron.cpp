@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Neuron.h"
 #include "Layers/SuperLayer.h"
+#include "Model.h"
 
 Neuron::Neuron() {
 }
@@ -22,6 +23,12 @@ void Neuron::setPrevLayer(SuperLayer *prevLayer) {
 
     //As we now know how many Neurons we have on the previous layer we can create a list of weights
     prevLayerWeights = new float[prevLayer->getLayerSize()];
+
+    for(int i = 0; i < prevLayer->getLayerSize(); i++) {
+        //Init all the weights to a random number
+        prevLayerWeights[i] = ((float) rand() / (RAND_MAX));
+//        prevLayerWeights[i] = 0.25;
+    }
 }
 
 SuperLayer *Neuron::getNextLayer() const {
@@ -33,8 +40,6 @@ void Neuron::setNextLayer(SuperLayer *nextLayer) {
         return;
     }
     Neuron::nextLayer = nextLayer;
-    //Here too, we can now know how many weights we have on the right side
-    nextLayerWeights = new float[nextLayer->getLayerSize()];
 }
 
 int Neuron::getPrevWeightsSize() {
@@ -52,10 +57,12 @@ void Neuron::setValue(float val) {
 }
 
 void Neuron::calculate() {
+    Neuron* prevNeurons = getPrevLayer()->getLayerNeurons();
+
     //Calculate the sum of all the weights + the bias
     float sum = bias;
     for(int i = 0; i < getPrevWeightsSize(); ++i) {
-        sum += prevLayerWeights[0];
+        sum += prevNeurons[i].getCurrentValue() * prevLayerWeights[i];
     }
 
     //Calculate the activation function
@@ -69,3 +76,32 @@ void Neuron::calculate() {
 void Neuron::setActivationFunction(ACTIVATION_FUNCTION activationFunction) {
     Neuron::activationFunction = activationFunction;
 }
+
+float Neuron::getCurrentValue() const {
+    return currentValue;
+}
+
+float Neuron::getPrevWeightAt(unsigned int i) const {
+    return prevLayerWeights[i];
+}
+
+void Neuron::addWeightAt(unsigned int i, float value) {
+    prevLayerWeights[i] += value;
+}
+
+void Neuron::addBias(float value) {
+    bias += value;
+}
+
+float Neuron::getBias() const {
+    return bias;
+}
+
+float Neuron::getDelta() const {
+    return delta;
+}
+
+void Neuron::setDelta(float delta) {
+    Neuron::delta = delta;
+}
+

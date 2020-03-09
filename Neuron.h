@@ -28,17 +28,36 @@ public:
     void calculate();
 
     void setActivationFunction(ACTIVATION_FUNCTION activationFunction);
+
+    float getCurrentValue() const;
+
+    float getPrevWeightAt(unsigned int i) const;
+
+    /**
+     * Adds to the weight at position i, the float "value".
+     * @param i the position of the weight.
+     * @param value the value that will be added to the weight.
+     */
+    void addWeightAt(unsigned int i, float value);
+
+    void addBias(float value);
+
+    float getDelta() const;
+
+    void setDelta(float delta);
+
+    float getBias() const;
+
+
 private:
     SuperLayer* prevLayer;
     SuperLayer* nextLayer;
     float* prevLayerWeights;
 
-    //TODO: MAYBE REMOVE THIS \/ and replace it with just an "output"
-    //TODO: which is the sum of all prevLayerWeights + bias through activation function
-    float* nextLayerWeights;
-
     float currentValue = 0;
     float bias = 0;
+    float delta = 0;
+
     ACTIVATION_FUNCTION activationFunction = RELU;
 public:
 };
